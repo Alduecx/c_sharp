@@ -3,8 +3,8 @@ public class WishListGenerator {
     private readonly IEnumerable<Employee> _teamLeads;
 
     public WishListGenerator(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors) {
-        this._juniors = juniors;
-        this._teamLeads = teamLeads;
+        _juniors = juniors;
+        _teamLeads = teamLeads;
     }
 
     public IEnumerable<Wishlist> GenerateJuniorsWishLists() {

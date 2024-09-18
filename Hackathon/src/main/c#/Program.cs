@@ -1,17 +1,13 @@
 ﻿using System.Diagnostics;
 
-IEnumerable<Employee> ReadEmployeesFromFile(string fileName, Func<TextReader, IEnumerable<Employee>> readFunc) {
-    using (var reader = new StreamReader(fileName)) {
-        return readFunc(reader);
-    }
-}
+string teamLeadsFilePath = "./src/main/resources/Teamleads20.csv";
+string juniorsFilePath = "./src/main/resources/Juniors20.csv";
 
+const int HACKATHON_REPEATS = 1000;
 
-string teamLeadsFileName = "./src/main/resources/Teamleads20.csv";
-string juniorsFileName = "./src/main/resources/Juniors20.csv";
 try {
-    var teamLeads = ReadEmployeesFromFile(teamLeadsFileName, Reader.ReadTeamLeads);
-    var juniors = ReadEmployeesFromFile(juniorsFileName, Reader.ReadJuniors);
+    var teamLeads = Reader.ReadTeamLeads(teamLeadsFilePath);
+    var juniors = Reader.ReadJuniors(juniorsFilePath);
     
     Debug.Assert(juniors.Count() == teamLeads.Count());
     
@@ -19,19 +15,17 @@ try {
     HRDirector director = new HRDirector();
     Hackathon hackathon = new Hackathon(teamLeads, juniors, manager, director);
     
-    var scores = new List<double>();
-    for(uint i = 0; i < 10; ++i) {
-        var score = hackathon.RunHackathon();
-        scores.Add(score);
-        Console.WriteLine($"Score = {score}");
+    var score = new List<double>();
+    for(uint i = 0; i < HACKATHON_REPEATS; ++i) {
+        var harmonic_mean = hackathon.RunHackathon();
+        score.Add(harmonic_mean);
+        Console.WriteLine($"{i+1}. Harmonic mean = {harmonic_mean}");
     }
     Console.WriteLine("------------------------");
-    Console.WriteLine($"AVG = {scores.Average()}");
+    Console.WriteLine($"AVG = {score.Average()}");
 
-}
-catch (FileNotFoundException ex) {
+} catch (FileNotFoundException ex) {
     Console.WriteLine($"Файл не найден: {ex.FileName}");
-}
-catch (Exception ex) {
+} catch (Exception ex) {
     Console.WriteLine($"Произошла ошибка: {ex.Message}");
 }

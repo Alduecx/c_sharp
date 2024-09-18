@@ -22,7 +22,7 @@ public class HRDirector {
             satisfactions.Add(juniorSatisfactionScore);
         }
         
-        int n = satisfactions.Count();
+        int n = satisfactions.Count;
         double sumOfReciprocals = satisfactions.Sum(x => 1.0 / x);
 
         return n / sumOfReciprocals;

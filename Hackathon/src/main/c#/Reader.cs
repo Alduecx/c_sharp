@@ -1,31 +1,23 @@
+using System.Globalization;
+using CsvHelper;
+using CsvHelper.Configuration;
+
 class Reader {
-    public static IEnumerable<Employee> ReadJuniors(TextReader reader) {
-        return ReadEmployee(reader);
+    public static IEnumerable<Employee> ReadJuniors(string filePath) {
+        return ReadEmployee(filePath);
     }
 
-    public static IEnumerable<Employee> ReadTeamLeads(TextReader reader) {
-        return ReadEmployee(reader);
+    public static IEnumerable<Employee> ReadTeamLeads(string filePath) {
+        return ReadEmployee(filePath);
     }
 
-    private static IEnumerable<Employee> ReadEmployee(TextReader reader) {
+    private static IEnumerable<Employee> ReadEmployee(string filePath) {
         var employees = new List<Employee>();
-
-        // First string: Id;Name
-        string? line = reader.ReadLine();
-        if (line == null) return employees;
-
-        // Next strings: <Id>;<Name>
-        while((line = reader.ReadLine()) != null) {
-            var parts = line.Split(';');
-            if (parts.Length == 2) {
-                int id;
-                if (int.TryParse(parts[0], out id)) {
-                    var employee = new Employee(Id: id, Name: parts[1]);
-                    employees.Add(employee);
-                }
+        using (var reader = new StreamReader(filePath)) {
+            using (var csvReader = new CsvReader(reader, new CsvConfiguration(CultureInfo.CurrentCulture) { Delimiter = ";" })) {
+                employees = csvReader.GetRecords<Employee>().ToList();
             }
         }
-
         return employees;
     }
 }

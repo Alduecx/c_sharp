@@ -1,4 +1,5 @@
-﻿public interface ITeamBuildingStrategy {
+﻿public interface ITeamBuildingStrategy
+{
     /// <summary>
     /// Распределяет тиилидов и джунов по командам
     /// </summary>

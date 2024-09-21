@@ -1,11 +1,13 @@
-public class Hackathon {
+public class Hackathon
+{
     private IEnumerable<Employee> _teamLeads;
     private IEnumerable<Employee> _juniors;
     private HRManager _manager;
     private HRDirector _director;
     private WishListGenerator _generator;
-    
-    public Hackathon(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors, HRManager manager, HRDirector director) {
+
+    public Hackathon(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors, HRManager manager, HRDirector director)
+    {
         _teamLeads = teamLeads;
         _juniors = juniors;
         _manager = manager;
@@ -13,12 +15,13 @@ public class Hackathon {
         _generator = new WishListGenerator(teamLeads, juniors);
     }
 
-    public double RunHackathon() {
+    public double RunHackathon()
+    {
         var teamLeadsWishLists = _generator.GenerateTeamleadsWishLists();
         var juniorsWishLists = _generator.GenerateJuniorsWishLists();
-        
+
         var teams = _manager.BuildTeams(_teamLeads, _juniors, teamLeadsWishLists, juniorsWishLists);
-        
+
         var score = _director.CalculateMetric(teams, teamLeadsWishLists, juniorsWishLists);
         return score;
     }

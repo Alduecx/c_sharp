@@ -1,8 +1,7 @@
 ﻿public record Employee(int Id, string Name)
 {
-    public void Deconstruct(out int id, out string name)
+    public Wishlist GenerateWishList(IEnumerable<Employee> preferredEmployees)
     {
-        id = this.Id;
-        name = this.Name;
+        return WishListGenerator.GenerateEmployeeWishList(this, preferredEmployees);
     }
 }

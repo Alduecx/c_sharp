@@ -1,15 +1,17 @@
 using System.Diagnostics;
 
-public class HRDirector
+public class HRDirector: IHRDirector
 {
-    public double CalculateMetric(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
+    public double CalculateScore(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
                                         IEnumerable<Wishlist> juniorsWishlists)
     {
-
         var satisfactions = new List<int>();
 
-        var teamLeadPreferences = teamLeadsWishlists.ToDictionary(w => w.EmployeeId, w => w.DesiredEmployees);
-        var juniorPreferences = juniorsWishlists.ToDictionary(w => w.EmployeeId, w => w.DesiredEmployees);
+        var teamLeadPreferences = teamLeadsWishlists
+            .ToDictionary(w => w.Employee.Id, w => w.PreferredEmployees);
+        var juniorPreferences = juniorsWishlists
+            .ToDictionary(w => w.Employee.Id, w => w.PreferredEmployees);
+
         Debug.Assert(teamLeadPreferences.Count == juniorPreferences.Count);
 
         foreach (var team in teams)
@@ -18,10 +20,10 @@ public class HRDirector
             var junior = team.Junior;
 
             // Считаем очки предпочтений
-            var teamLeadSatisfactionScore = CalculateSatisfactionScore(teamLeadPreferences, teamLead.Id, junior.Id);
+            var teamLeadSatisfactionScore = CalculateSatisfactionScore(teamLeadPreferences[teamLead.Id], junior);
             satisfactions.Add(teamLeadSatisfactionScore);
 
-            var juniorSatisfactionScore = CalculateSatisfactionScore(juniorPreferences, junior.Id, teamLead.Id);
+            var juniorSatisfactionScore = CalculateSatisfactionScore(juniorPreferences[junior.Id], teamLead);
             satisfactions.Add(juniorSatisfactionScore);
         }
 
@@ -31,11 +33,10 @@ public class HRDirector
         return n / sumOfReciprocals;
     }
 
-    private int CalculateSatisfactionScore(Dictionary<int, int[]> prefereces, int workerId, int coworkerId)
+    private int CalculateSatisfactionScore(IEnumerable<Employee> preferences, Employee coworker)
     {
-        var maxScore = prefereces.Count;
-
-        var rank = Array.IndexOf(prefereces[workerId], coworkerId);
+        var maxScore = preferences.Count();
+        var rank = Array.IndexOf(preferences.ToArray(), coworker);
         Debug.Assert(rank >= 0);
 
         var satisfactionScore = maxScore - rank;

@@ -1,12 +1,9 @@
 
-public class HRManager
+public class HRManager(ITeamBuildingStrategy TeamBuildingStrategy): IHRManager
 {
-    private readonly ITeamBuildingStrategy _teamBuildingStrategy = new SimpleStrategy();
-
-    public IEnumerable<Team> BuildTeams(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors,
-            IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)
+    public IEnumerable<Team> BuildTeams(IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)
     {
-        return _teamBuildingStrategy.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
+        return TeamBuildingStrategy.BuildTeams(teamLeadsWishlists, juniorsWishlists);
     }
 }
 

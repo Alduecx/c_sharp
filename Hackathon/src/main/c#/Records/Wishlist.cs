@@ -1,8 +1,3 @@
-﻿public record Wishlist(int EmployeeId, int[] DesiredEmployees)
+﻿public record Wishlist(Employee Employee, IEnumerable<Employee> PreferredEmployees)
 {
-    public void Deconstruct(out int employeeId, out int[] desiredEmployees)
-    {
-        employeeId = this.EmployeeId;
-        desiredEmployees = this.DesiredEmployees;
-    }
 }

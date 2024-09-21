@@ -1,34 +1,39 @@
 
 public class SimpleStrategy : ITeamBuildingStrategy
 {
-    public IEnumerable<Team> BuildTeams(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors,
-                    IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)
+    public IEnumerable<Team> BuildTeams(IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)
     {
 
         var teams = new List<Team>();
 
-        var availableTeamLeads = teamLeads.ToDictionary(t => t.Id, t => t); // Свободные тимлиды по ID
-        var availableJuniors = juniors.ToDictionary(j => j.Id, j => j);     // Свободные джуны по ID
+        var teamLeads = teamLeadsWishlists.Select(wishList => wishList.Employee);
+        var juniors = juniorsWishlists.Select(wishList => wishList.Employee);
 
-        var teamLeadPreferences = teamLeadsWishlists.ToDictionary(w => w.EmployeeId, w => w.DesiredEmployees);
-        var juniorPreferences = juniorsWishlists.ToDictionary(w => w.EmployeeId, w => w.DesiredEmployees);
+        var availableTeamLeads = teamLeads.ToDictionary(t => t.Id, t => t); // Свободные тимлиды по ID
+        
+        var availableJuniors = juniors.ToDictionary(j => j.Id, j => j); // Свободные джуны по ID
+
+        var teamLeadPreferences = teamLeadsWishlists
+            .ToDictionary(wishList => wishList.Employee.Id, wishList => wishList.PreferredEmployees);
+        var juniorPreferences = juniorsWishlists
+            .ToDictionary(wishList => wishList.Employee.Id, wishList => wishList.PreferredEmployees);
 
         foreach (var teamLead in teamLeads)
         {
             if (!availableTeamLeads.ContainsKey(teamLead.Id)) continue; // тимлид уже присоединён к команде
 
-            foreach (var preferredJuniorId in teamLeadPreferences[teamLead.Id])
+            foreach (var preferredJunior in teamLeadPreferences[teamLead.Id])
             {
-                if (availableJuniors.ContainsKey(preferredJuniorId))
+                if (availableJuniors.TryGetValue(preferredJunior.Id, out Employee? value))
                 {
                     // Если джун доступен, создаём команду
-                    var junior = availableJuniors[preferredJuniorId];
+                    var junior = value;
 
                     // Находим или создаём команду для тимлида
                     teams.Add(new Team(teamLead, junior));
 
                     // Удаляем джуна из свободных
-                    availableJuniors.Remove(preferredJuniorId);
+                    availableJuniors.Remove(preferredJunior.Id);
 
                     // Удаляем тимлида из свободных
                     availableTeamLeads.Remove(teamLead.Id);

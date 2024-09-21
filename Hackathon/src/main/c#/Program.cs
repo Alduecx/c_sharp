@@ -8,5 +8,5 @@ string juniorsFilePath = "./src/main/resources/Juniors20.csv";
 
 const int hackathonRepeats = 10;
 
-SandBox sandbox = new(new HRManager(new SimpleStrategy()), new HRDirector(), new());
+SandBox sandbox = new(new HrManager(new SimpleStrategy()), new HrDirector(), new());
 sandbox.RunExperiment(teamLeadsFilePath, juniorsFilePath, hackathonRepeats);

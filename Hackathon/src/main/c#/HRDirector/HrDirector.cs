@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-public class HRDirector: IHRDirector
+public class HrDirector: IHrDirector
 {
     public double CalculateScore(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
                                         IEnumerable<Wishlist> juniorsWishlists)

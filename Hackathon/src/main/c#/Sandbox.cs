@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-class SandBox(IHRManager manager, IHRDirector director, Hackathon hackathon)
+class SandBox(IHrManager manager, IHrDirector director, Hackathon hackathon)
 {
     public void RunExperiment(in string teamLeadsFilePath, in string juniorsFilePath, in int hackathonRepeats)
     {

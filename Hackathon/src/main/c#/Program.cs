@@ -1,12 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection; 
-using Microsoft.Extensions.Hosting; 
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
+var host = Host.CreateDefaultBuilder(args)
+        .ConfigureServices((hostContext, services) => { 
+            services.AddHostedService<ExperimentWorker>()
+            .AddSingleton<Experiment>()
+            .AddTransient<Hackathon>()
+            .AddTransient<IHrDirector, HrDirector>()
+            .AddTransient<IHrManager, HrManager>()
+            .AddTransient<ITeamBuildingStrategy, SimpleStrategy>()
+            .BuildServiceProvider();
+  	}).Build();
 
-
-string teamLeadsFilePath = "./src/main/resources/Teamleads20.csv";
-string juniorsFilePath = "./src/main/resources/Juniors20.csv";
-
-const int hackathonRepeats = 10;
-
-SandBox sandbox = new(new HrManager(new SimpleStrategy()), new HrDirector(), new());
-sandbox.RunExperiment(teamLeadsFilePath, juniorsFilePath, hackathonRepeats);
+host.Run(); 

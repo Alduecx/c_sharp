@@ -1,18 +1,18 @@
 using System.Diagnostics;
 
-class SandBox(IHrManager manager, IHrDirector director, Hackathon hackathon)
+class Experiment(IHrManager manager, IHrDirector director, Hackathon hackathon)
 {
-    public void RunExperiment(in string teamLeadsFilePath, in string juniorsFilePath, in int hackathonRepeats)
+    public void RunExperiment()
     {
         try
         {
-            var teamLeads = Reader.ReadTeamLeads(teamLeadsFilePath);
-            var juniors = Reader.ReadJuniors(juniorsFilePath);
+            var teamLeads = Reader.ReadTeamLeads(Constants.TeamLeadsFilePath);
+            var juniors = Reader.ReadJuniors(Constants.JuniorsFilePath);
 
             Debug.Assert(juniors.Count() == teamLeads.Count());
 
             var score = new List<double>();
-            for (int i = 0; i < hackathonRepeats; ++i)
+            for (int i = 0; i < Constants.HackathonRepeats; ++i)
             {
                 IEnumerable<Wishlist> teamLeadsWishLists;
                 IEnumerable<Wishlist> juniorsWishLists;

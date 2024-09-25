@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-var host = Host.CreateDefaultBuilder(args)
-        .ConfigureServices((hostContext, services) => { 
+var host = Host.CreateDefaultBuilder(args)  
+        .ConfigureServices((hostContext, services) => {
             services.AddHostedService<ExperimentWorker>()
             .AddSingleton<Experiment>()
             .AddTransient<Hackathon>()

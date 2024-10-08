@@ -1,5 +1,5 @@
 
-public class HrManager(ITeamBuildingStrategy teamBuildingStrategy): IHrManager
+public class HrManager(ITeamBuildingStrategy teamBuildingStrategy)
 {
     
     public IEnumerable<Team> BuildTeams(IEnumerable<Wishlist> teamLeadsWishlists, IEnumerable<Wishlist> juniorsWishlists)

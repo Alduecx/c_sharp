@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-class Experiment(IHrManager manager, IHrDirector director, Hackathon hackathon)
+class Experiment(HrManager manager, HrDirector director, Hackathon hackathon)
 {
     public void RunExperiment()
     {
@@ -21,7 +21,7 @@ class Experiment(IHrManager manager, IHrDirector director, Hackathon hackathon)
                 
                 var teams = manager.BuildTeams(teamLeadsWishLists, juniorsWishLists);
 
-                var harmonicMean = director.CalculateScore(teams, teamLeadsWishLists, juniorsWishLists);
+                var harmonicMean = director.CalculateHarmonicMean(teams, teamLeadsWishLists, juniorsWishLists);
                 score.Add(harmonicMean);
                 
                 Console.WriteLine($"{i + 1}. Harmonic mean = {harmonicMean}");

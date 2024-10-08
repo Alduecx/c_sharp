@@ -6,8 +6,8 @@ var host = Host.CreateDefaultBuilder(args)
             services.AddHostedService<ExperimentWorker>()
             .AddSingleton<Experiment>()
             .AddTransient<Hackathon>()
-            .AddTransient<IHrDirector, HrDirector>()
-            .AddTransient<IHrManager, HrManager>()
+            .AddTransient<HrDirector>()
+            .AddTransient<HrManager>()
             .AddTransient<ITeamBuildingStrategy, SimpleStrategy>()
             .BuildServiceProvider();
   	}).Build();

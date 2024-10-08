@@ -1,8 +1,9 @@
 using System.Diagnostics;
 
-public class HrDirector: IHrDirector
+public class HrDirector
 {
-    public double CalculateScore(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
+
+    public double CalculateHarmonicMean(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
                                         IEnumerable<Wishlist> juniorsWishlists)
     {
         var satisfactions = new List<int>();

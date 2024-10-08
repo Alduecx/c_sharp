@@ -21,7 +21,7 @@ class Experiment(HrManager manager, HrDirector director, Hackathon hackathon)
                 
                 var teams = manager.BuildTeams(teamLeadsWishLists, juniorsWishLists);
 
-                var harmonicMean = director.CalculateHarmonicMean(teams, teamLeadsWishLists, juniorsWishLists);
+                var harmonicMean = director.CalculateHarmonicMeanByTeams(teams, teamLeadsWishLists, juniorsWishLists);
                 score.Add(harmonicMean);
                 
                 Console.WriteLine($"{i + 1}. Harmonic mean = {harmonicMean}");

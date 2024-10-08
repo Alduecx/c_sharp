@@ -3,7 +3,7 @@ using System.Diagnostics;
 public class HrDirector
 {
 
-    public double CalculateHarmonicMean(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
+    public double CalculateHarmonicMeanByTeams(IEnumerable<Team> teams, IEnumerable<Wishlist> teamLeadsWishlists,
                                         IEnumerable<Wishlist> juniorsWishlists)
     {
         var satisfactions = new List<int>();
@@ -28,10 +28,15 @@ public class HrDirector
             satisfactions.Add(juniorSatisfactionScore);
         }
 
-        int n = satisfactions.Count;
-        double sumOfReciprocals = satisfactions.Sum(x => 1.0 / x);
+        return CalculateHarmonicMean(satisfactions);
+    }
 
-        return n / sumOfReciprocals;
+    private double CalculateHarmonicMean(IEnumerable<int> values) 
+    {
+        int size = values.Count();
+        double sumOfReciprocals = values.Sum(x => 1.0 / x);
+
+        return size / sumOfReciprocals;
     }
 
     private int CalculateSatisfactionScore(IEnumerable<Employee> preferences, Employee coworker)

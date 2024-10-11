@@ -27,16 +27,10 @@ public class HrDirector
             var juniorSatisfactionScore = CalculateSatisfactionScore(juniorPreferences[junior.Id], teamLead);
             satisfactions.Add(juniorSatisfactionScore);
         }
-
-        return CalculateHarmonicMean(satisfactions);
-    }
-
-    private double CalculateHarmonicMean(IEnumerable<int> values) 
-    {
-        int size = values.Count();
-        double sumOfReciprocals = values.Sum(x => 1.0 / x);
-
-        return size / sumOfReciprocals;
+        // Является ли проблемой статический метод?
+        // Если сделать метод публичный - наршуние инкапсуляции? Зачем делать метод вычисления гаромнического публичным в HrDirector?
+        // Может проблемы в самом задании?
+        return Calculator.CalculateHarmonicMean(satisfactions);
     }
 
     private int CalculateSatisfactionScore(IEnumerable<Employee> preferences, Employee coworker)

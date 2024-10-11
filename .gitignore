@@ -1,5 +1,7 @@
-Hackathon.sln
-Hackathon/obj
 .vscode
-Hackathon/bin/
 ideas.txt
+Hackathon.sln
+Hackathon/bin/
+Hackathon/obj
+HackathonTest/bin/
+HackathonTest/obj/

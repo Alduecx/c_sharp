@@ -15,12 +15,12 @@ public class HrDirectorTests
     }
 
     [Test]
-    public void HrDirectot_CalculateHarmonicMeanByTeams_IsEqualToExpectedResult() {
-        var teamLeads = Employees.GetTeamLeads5();
-        var juniors = Employees.GetJuniors5();
-        var teamLeadsWishLists = Employees.GetSimpleTeamLeadsWishLists(teamLeads, juniors);
-        var juniorsWishLists = Employees.GetSimpleJuniorsWishLists(juniors, teamLeads);
-        var teams = Employees.GetSimpleTeams(teamLeads, juniors);
+    public void CalculateHarmonicMeanByTeams_IsEqualToExpectedResult() {
+        var teamLeads = Fixture.GetTeamLeads5();
+        var juniors = Fixture.GetJuniors5();
+        var teamLeadsWishLists = Fixture.GetSimpleTeamLeadsWishLists(teamLeads, juniors);
+        var juniorsWishLists = Fixture.GetSimpleJuniorsWishLists(juniors, teamLeads);
+        var teams = Fixture.GetSimpleTeams(teamLeads, juniors);
         HrDirector director = new HrDirector();
         
 

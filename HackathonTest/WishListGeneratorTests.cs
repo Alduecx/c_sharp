@@ -10,8 +10,8 @@ class WishListGeneratorTests
 
     [OneTimeSetUp]
     public void SetUp() {
-        employee = Employees.GetTeamLeads5().First();
-        coworkers = Employees.GetTeamLeads5();
+        employee = Fixture.GetTeamLeads5().First();
+        coworkers = Fixture.GetTeamLeads5();
         wishlist = employee.GenerateWishList(coworkers);
     }
 

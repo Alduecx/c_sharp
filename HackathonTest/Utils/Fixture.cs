@@ -1,7 +1,6 @@
 using System.Diagnostics;
-using NUnit.Framework.Internal;
 
-class Employees
+class Fixture
 {
     public static IEnumerable<Employee> GetJuniors5() {	
         var juniors = new List<Employee>() {

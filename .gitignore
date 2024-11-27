@@ -1,7 +1,9 @@
 .vscode
 ideas.txt
 Hackathon.sln
-Hackathon/bin/
-Hackathon/obj
-HackathonTest/bin/
-HackathonTest/obj/
+Hackathon/
+HackathonTest/
+TestRabbitMq/
+HackathonProblem/SandBox/bin/
+HackathonProblem/SandBox/obj/
+

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SandBox.Models.Data;
 using MassTransit;
+using SandBox.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<SandBoxConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         

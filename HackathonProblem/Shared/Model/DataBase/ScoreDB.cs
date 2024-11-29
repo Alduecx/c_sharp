@@ -1,7 +1,8 @@
-namespace Shared.Model.Messages;
+namespace Shared.Model.DataBase;
 
-public record CalculatingScore
+public class ScoreDB
 {
+    public int Id { get; set; }
     public int ExperimentId { get; set; }
     public int HackathonCount { get; set; }
     public double Score { get; set; }

@@ -1,14 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using SandBox.Models.DTO;
+using Shared.Model.DataBase;
 
 namespace SandBox.Models.Data;
 
 public class ApplicationDbContext : DbContext
 {
-    public DbSet<ExperimentSb> Experiments { get; set; }
-    public DbSet<EmployeeSb> Employees { get; set; }
-    public DbSet<WishlistSb> Wishlists { get; set; }
-    public DbSet<TeamSb> Teams { get; set; }
+    public DbSet<ExperimentDB> Experiments { get; set; }
+    public DbSet<ScoreDB> Scores { get; set; }
+    public DbSet<EmployeeDB> Employees { get; set; }
+    public DbSet<WishlistDB> Wishlists { get; set; }
+    public DbSet<TeamDB> Teams { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -16,36 +17,40 @@ public class ApplicationDbContext : DbContext
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<ExperimentSb>().ToTable("Experiments");
-        modelBuilder.Entity<EmployeeSb>().ToTable("Employees");
-        modelBuilder.Entity<TeamSb>().ToTable("Teams");
-        modelBuilder.Entity<WishlistSb>().ToTable("Wishlists")
+    {  
+        modelBuilder.Entity<ExperimentDB>().ToTable("Experiments");
+        modelBuilder.Entity<ScoreDB>().ToTable("Scores");
+        modelBuilder.Entity<EmployeeDB>().ToTable("Employees");
+        modelBuilder.Entity<TeamDB>().ToTable("Teams");
+        modelBuilder.Entity<WishlistDB>().ToTable("Wishlists")
             .HasMany(w => w.PreferredEmployees)
             .WithMany()
             .UsingEntity<Dictionary<string, object>>(
                 "EmployeesInWishLists", // Название таблицы
-                right => right.HasOne<EmployeeSb>().WithMany().HasForeignKey("EmployeeId"),
-                left => left.HasOne<WishlistSb>().WithMany().HasForeignKey("WishlistId")
+                right => right.HasOne<EmployeeDB>().WithMany().HasForeignKey("EmployeeId"),
+                left => left.HasOne<WishlistDB>().WithMany().HasForeignKey("WishlistId")
             );
+        modelBuilder.Entity<EmployeeDB>()
+            .OwnsOne(e => e.Employee);
     }
 }
 
 /*
 SandBox: 
-    Experiment: Id, Score
-    TeamSB: Id, ExperimentId, TeamLead, June <- ExperimentId - class
-    WishlistSB: Id, ExperimentId, EmployeeId, Array of EmployeeId <- ExperimentID - class
-    Employee: Id, Name, Role 
+    Experiment: Id, HackathonNumber, Status, AverageScore
+    Hackathon:  ExperimentId, HackathonCout, Score
+    EmployeeDB: Id, ExperimentId, Employee
+    WishlistDB: Id, ExperimentId, HackathonCount, EmployeeDB, list<EmployeeDB>
+    TeamDB: Id, ExperimentId, HackathonCount, EmployeeDB TeamLead, EmployeeDB Junior
 
 HrDirector:
-    Team: Id, ExperimentId (int), TeamLead, June
-    Wishlist: Id, ExperimentId (int), EmployeeId, Array of EmployeeId
-    Employee: Id, Name, Role
+    EmployeeDB: Id, ExperimentId, Employee
+    WishlistDB: Id, ExperimentId, HackathonCount, EmployeeDB, list<EmployeeDB>
+    TeamDB: Id, ExperimentId, HackathonCount, EmployeeDB TeamLead, EmployeeDB Junior
 
 HrManager:
-    Wishlist: Id, ExperimentId (int), EmployeeId, Array of EmployeeId
-    Employee: Id, Name, Role
+   EmployeeDB: Id, ExperimentId, Employee
+   WishlistDB: Id, ExperimentId, HackathonCount, EmployeeDB, list<EmployeeDB>
 
 Messaged:
     RunningExperiment - from SandBox to HrDirector

@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <AssemblyName>HrManager</AssemblyName>
+        <RootNamespace>HrManager</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -83,7 +85,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models\Data\" />
       <Folder Include="wwwroot\" />
     </ItemGroup>
 

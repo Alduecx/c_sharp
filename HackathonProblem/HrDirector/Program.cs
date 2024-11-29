@@ -1,5 +1,6 @@
 using HrDirector.Controllers;
 using HrDirector.Models.Data;
+using HrDirector.Models.Logic;
 using Microsoft.EntityFrameworkCore;
 using MassTransit;
 
@@ -33,8 +34,17 @@ builder.Services.AddMassTransit(x =>
 });
 
 
+builder.Services
+    .AddTransient<HrDirectorLogic>();
+
 // Создание приложения
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.EnsureCreated(); // Создает новую базу
+}
 
 // Запуск приложения
 app.Run();

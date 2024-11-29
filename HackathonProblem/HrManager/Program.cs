@@ -1,13 +1,17 @@
 using MassTransit;
 using HrManager.Controllers;
+using HrManager.Models.Data;
+using HrManager.Models.Logic;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// builder.Services.AddDbContext<ApplicationDbContext>(options =>
-// {
-//     // Установка строки подключения к базе данных
-//     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//     options.UseNpgsql(connectionString);
-// });
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    // Установка строки подключения к базе данных
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseNpgsql(connectionString);
+});
 
 builder.Services.AddControllers();
 
@@ -30,9 +34,18 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
+builder.Services
+    .AddTransient<HrManagerLogic>()
+    .AddTransient<ITeamBuildingStrategy, SimpleStrategy>();
 
 // Создание приложения
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.EnsureCreated(); // Создает новую базу
+}
 
 // Настройка маршрутов
 app.MapControllers();

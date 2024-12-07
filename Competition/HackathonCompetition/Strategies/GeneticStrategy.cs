@@ -12,7 +12,7 @@ public class GeneticStrategy : ITeamBuildingStrategy
     public IEnumerable<Team> BuildTeams(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors, IEnumerable<Wishlist> teamLeadsWishlists,
         IEnumerable<Wishlist> juniorsWishlists)
     {
-        var random = new Random(42);
+        var random = new Random(21210);
         var population = GenerateInitialPopulation(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists, random);
         var teamLeadsWishlistsDict = teamLeadsWishlists.ToDictionary(w => w.EmployeeId, w => w.DesiredEmployees);
         var juniorsWishlistsDict = juniorsWishlists.ToDictionary(w => w.EmployeeId, w => w.DesiredEmployees);

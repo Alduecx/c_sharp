@@ -1,0 +1,12 @@
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/bin/Release/net8.0/Nsu.HackathonProblem.Contracts.deps.json
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/bin/Release/net8.0/Nsu.HackathonProblem.Contracts.dll
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/bin/Release/net8.0/Nsu.HackathonProblem.Contracts.pdb
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/Nsu.HackathonProblem.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/Nsu.HackathonProblem.Contracts.AssemblyInfoInputs.cache
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/Nsu.HackathonProblem.Contracts.AssemblyInfo.cs
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/Nsu.HackathonProblem.Contracts.csproj.CoreCompileInputs.cache
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/Nsu.HackathonProblem.Contracts.sourcelink.json
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/Nsu.HackathonProblem.Contracts.dll
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/refint/Nsu.HackathonProblem.Contracts.dll
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/Nsu.HackathonProblem.Contracts.pdb
+/home/thinkingduck/Life/nsu/c_sharp/Competition/Nsu.HackathonProblem.Contracts/obj/Release/net8.0/ref/Nsu.HackathonProblem.Contracts.dll

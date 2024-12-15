@@ -6,8 +6,9 @@ namespace HackathonCompetition.Strategies;
 
 public class GeneticStrategy : ITeamBuildingStrategy
 {
-    private const int PopulationSize = 150;
-    private const int Generations = 1000;
+    private const int PopulationSize = 100;
+    private const int Generations = 500;
+    private const double MutationProbability = 0.05;
 
     public IEnumerable<Team> BuildTeams(IEnumerable<Employee> teamLeads, IEnumerable<Employee> juniors, IEnumerable<Wishlist> teamLeadsWishlists,
         IEnumerable<Wishlist> juniorsWishlists)
@@ -43,18 +44,15 @@ public class GeneticStrategy : ITeamBuildingStrategy
         List<ITeamBuildingStrategy> strategies = new List<ITeamBuildingStrategy>();
         strategies.Add(new GaleShapleyStrategy());
         strategies.Add(new SimpleStrategy());
+        strategies.Add(new LibStrategy());
         
-        var numIdivid = PopulationSize / (strategies.Count + 1);
         foreach (var strategy in strategies)
         {
-            for (var i = 0; i < numIdivid; i++) 
-            {
-                var team = strategy.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
-                population.Add(team.ToList());
-            }
-            
+            var team = strategy.BuildTeams(teamLeads, juniors, teamLeadsWishlists, juniorsWishlists);
+            population.Add(team.ToList());
         }
-        for (int i = 0; i < numIdivid; i++)
+        
+        for (int i = population.Count; i < PopulationSize; i++)
         {
             var shuffledJuniors = juniors.OrderBy(_ => random.Next()).ToList();
             var teams = teamLeads.Zip(shuffledJuniors, (teamLead, junior) => new Team(teamLead, junior)).ToList();
@@ -76,7 +74,7 @@ public class GeneticStrategy : ITeamBuildingStrategy
             if (fitnessScores[i] > limit)
             {
                 selected.Add(population[i]);
-                if (selected.Count > 0.7 * PopulationSize)
+                if (selected.Count > 0.5 * PopulationSize)
                 {
                     break;
                 }
@@ -109,7 +107,7 @@ public class GeneticStrategy : ITeamBuildingStrategy
     
     private void Mutate(List<Team> teams, Random random)
     {
-        var numbMutations = random.Next(0, teams.Count);
+        var numbMutations = MutationProbability * teams.Count;
         for (int i = 0; i < numbMutations; i++) {
             int index1 = random.Next(teams.Count);
             int index2 = random.Next(teams.Count);
